@@ -1,3 +1,5 @@
+package q5;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -76,7 +78,7 @@ public class Frequency {
         int size = A.length <= numThreads ? 1 : A.length / numThreads;
 
         int begin = 0;
-        for (int i = 0; i < numThreads;i++) {
+        for (int i = 0; i < Math.min(numThreads, A.length);i++) {
             List<Integer> temp = new ArrayList<>();
             if (i == numThreads - 1) {
                 for (int j = begin;j < A.length;j++) {
