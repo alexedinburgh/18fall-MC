@@ -9,7 +9,7 @@ public class PIncrement extends Increment {
     private static volatile AtomicInteger atomicInteger;
 
     /**
-     *
+     * Main method to call
      * @param c
      * @param numThreads
      * @return
@@ -58,6 +58,18 @@ public class PIncrement extends Increment {
             System.out.println("Thread id: " + id + "; Thread end increment: " + atomicInteger.get());
 
         }
+    }
+
+    public static void main (String[] args) {
+        for (int i = 1; i <= 8; i++) {
+            long start = System.currentTimeMillis();
+            parallelIncrement(0, i);
+            long end = System.currentTimeMillis();
+            System.out.println("Time spent is: " + (end - start) + " ms");
+        }
+
+
+
     }
 
 

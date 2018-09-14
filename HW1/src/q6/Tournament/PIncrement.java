@@ -47,7 +47,7 @@ public class PIncrement extends Increment {
 
         @Override
         public void run() {
-            if (id == numThreads) {
+            if (id == numThreads - 1) {
                 for (int i = 0;i < TOTAL_OPS - (TOTAL_OPS / numThreads) * (numThreads - 1);i++) {
                     getIncrement(id);
                 }
@@ -58,6 +58,15 @@ public class PIncrement extends Increment {
                 }
             }
             System.out.println("Thread id: " + id + "; Thread end increment: " + counter);
+        }
+    }
+
+    public static void main (String[] args) {
+        for (int i = 1;i < 9;i++) {
+            long start = System.currentTimeMillis();
+            parallelIncrement(0, i);
+            long end = System.currentTimeMillis();
+            System.out.println("Tournament Time spent is: " + (end - start) + " ms");
         }
     }
 

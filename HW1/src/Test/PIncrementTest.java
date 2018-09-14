@@ -31,7 +31,7 @@ public class PIncrementTest {
 
     @Test
     public void TestTournament() {
-        int res = q6.Tournament.PIncrement.parallelIncrement(0, 6);
+        int res = q6.Tournament.PIncrement.parallelIncrement(0, 8);
         assertEquals("Result is " + res + ", expected result is 1200000.", 1200000, res);
     }
 

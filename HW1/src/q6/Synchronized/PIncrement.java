@@ -60,4 +60,16 @@ public class PIncrement extends Increment {
         }
     }
 
+    public static void main (String[] args) {
+        for (int i = 1; i <= 8; i++) {
+            long start = System.currentTimeMillis();
+            parallelIncrement(0, i);
+            long end = System.currentTimeMillis();
+            System.out.println("Sync Time spent is: " + (end - start) + " ms");
+        }
+
+
+
+    }
+
 }
