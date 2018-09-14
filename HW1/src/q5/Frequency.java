@@ -14,9 +14,9 @@ public class Frequency {
 
     private static ExecutorService threadPool;
 
-    static class helper implements Callable {
-        int target;
-        List<Integer> targetList;
+    private static class helper implements Callable {
+        private final int target;
+        private final List<Integer> targetList;
 
         public helper (int target, List<Integer> targetList) {
             this.target = target;

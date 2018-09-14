@@ -22,7 +22,7 @@ public class PIncrementTest {
     }
 
     @Test
-    public void parallelIncrement() {
+    public void TestSync() {
         for (int i = 1;i < 9;i++) {
             int res = q6.Synchronized.PIncrement.parallelIncrement(0, 8);
             assertTrue("Result is " + res + ", expected result is 1200000.", res == 1200000);
@@ -31,8 +31,8 @@ public class PIncrementTest {
 
     @Test
     public void TestTournament() {
-        int res = q6.Tournament.PIncrement.parallelIncrement(0, 8);
-        assertTrue("Result is " + res + ", expected result is 1200000.", res == 1200000);
+        int res = q6.Tournament.PIncrement.parallelIncrement(0, 6);
+        assertEquals("Result is " + res + ", expected result is 1200000.", 1200000, res);
     }
 
 }
