@@ -23,8 +23,8 @@ public class LockFreeListSet implements ListSet {
         while (true) {
             Node prev = head.get();
             Node cur = head.get().next.get();
-            while (cur != null) {
-                if (cur.value >= value) {
+            while (cur != null && cur.value <= value) {
+                if (cur.value == value) {
                     return false;
                 }
                 prev = cur;
