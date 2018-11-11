@@ -96,18 +96,12 @@ public class BitonicSort {
 			if (length > 1) {
 				int halfLength = length / 2;
 				
-				ArrayList<ForkJoinTask<Void>> temp = new ArrayList<ForkJoinTask<Void>>();
+				ArrayList<Callable<Void>> temp = new ArrayList<Callable<Void>>();
 				for (int i = begin;i < begin + halfLength;i++) {
 					//compareAndSwap(input, i, i + halfLength, isUp);
-					temp.add(pool.submit(new SwapTask(input, i, i + halfLength, isUp)));
+					temp.add(new SwapTask(input, i, i + halfLength, isUp));
 				}
-				for (int i = 0;i < halfLength;i++) {
-					try {
-						temp.get(i).get();
-					} catch (Exception e) {
-						System.out.println(e);
-					}
-				}
+				pool.invokeAll(temp);
 				
 				BitonicMergeTask left = new BitonicMergeTask(input, begin, halfLength, isUp);
 				left.fork();
