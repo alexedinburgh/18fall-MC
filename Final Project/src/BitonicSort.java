@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ForkJoinPool;
 import java.util.concurrent.RecursiveAction;
@@ -50,8 +51,8 @@ public class BitonicSort {
 		}
 	}
 	
-	public void sort(ArrayList<Integer> input) {
-		bitonicSort(input, 0, input.size(), true);
+	public void sort(List<Integer> input) {
+		bitonicSort((ArrayList<Integer>) input, 0, input.size(), true);
 	}
 	
 	public class SwapTask implements Callable<Void> {
@@ -74,7 +75,7 @@ public class BitonicSort {
 			return null;
 		}
 	}
-	
+
 	public class BitonicMergeTask extends RecursiveAction {
 
 		private static final long serialVersionUID = 1L;
