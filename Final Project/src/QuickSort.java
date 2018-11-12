@@ -16,11 +16,9 @@ import java.util.concurrent.RecursiveAction;
  */
 public class QuickSort {
 	ForkJoinPool pool;
-	int numThreads;
 	ArrayList<Integer> input;
 	
 	public QuickSort(int numThreads) {
-		this.numThreads = numThreads;
 		this.pool = new ForkJoinPool(numThreads);
 	}
 	
