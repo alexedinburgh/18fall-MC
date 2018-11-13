@@ -20,9 +20,9 @@ public class MergesortTest {
         int[] test = a.getRandomArray(10000000, -100000, 100000);
         int[] target = Arrays.copyOf(test, test.length);
         Arrays.sort(target);
-        long start = System.nanoTime();
+        long start = System.currentTimeMillis();
         a.sort(test, 1000);
-        long end = System.nanoTime();
+        long end = System.currentTimeMillis();
         //System.out.println(Arrays.toString(input));
         System.out.println(end - start);
 //        System.out.println(Arrays.toString(test));
