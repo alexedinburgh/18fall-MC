@@ -1,4 +1,4 @@
-/**
+package algo; /**
  * https://en.wikipedia.org/wiki/Merge_sort
  *
  * https://stanford.edu/~rezab/classes/cme323/S16/notes/Lecture04/cme323_lec4.pdf

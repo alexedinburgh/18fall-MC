@@ -1,9 +1,10 @@
+package test;
+
+import algo.Mergesort;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import static org.junit.Assert.*;

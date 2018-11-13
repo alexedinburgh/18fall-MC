@@ -1,3 +1,6 @@
+package test;
+
+import algo.BitonicSort;
 import org.junit.Assert;
 
 import java.util.ArrayList;
