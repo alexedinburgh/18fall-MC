@@ -8,6 +8,8 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 
 /**
@@ -22,6 +24,7 @@ public class RadixSort {
 	ArrayList<Integer> input;
 	ArrayList<Integer> pos;
 	ArrayList<Integer> neg;
+	Lock lock = new ReentrantLock();
 	
 	public RadixSort(int numThreads) {
 		pool = Executors.newFixedThreadPool(numThreads);
@@ -39,10 +42,14 @@ public class RadixSort {
 		try {
 			pool.invokeAll(separate);
 			for (int i = 0;i < 32;++i) {
-				RadixSortHelper radixSortHelperPos = new RadixSortHelper(true, i);
-				radixSortHelperPos.execute();
-				RadixSortHelper radixSortHelperNeg = new RadixSortHelper(false, i);
-				radixSortHelperNeg.execute();
+				if (pos.size() > 0) {
+					RadixSortHelper radixSortHelperPos = new RadixSortHelper(true, i);
+					radixSortHelperPos.execute();
+				}
+				if (neg.size() > 0) {
+					RadixSortHelper radixSortHelperNeg = new RadixSortHelper(false, i);
+					radixSortHelperNeg.execute();
+				}
 			}
 			ArrayList<Callable<Object>> concatenate = new ArrayList<Callable<Object>>();
 			for (int i = 0;i < neg.size();++i) {
@@ -157,11 +164,13 @@ public class RadixSort {
 		
 		@Override
 		public void run() {
+			lock.lock();
 			if (input.get(index) >= 0) {
 				pos.add(input.get(index));
 			} else {
 				neg.add(-input.get(index));
 			}
+			lock.unlock();
 		}
 	}
 	
@@ -276,7 +285,7 @@ public class RadixSort {
 		long start = System.nanoTime();
 		radixSort.sort(input);
 		long end = System.nanoTime();
-		
+
 		System.out.println(Arrays.toString(input.toArray()));
 		System.out.println(end - start);
 		radixSort.pool.shutdown();
