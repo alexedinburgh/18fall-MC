@@ -8,35 +8,47 @@ import java.util.*;
 
 import static org.junit.Assert.*;
 
-public class RadixSortTest {
+public class RadixSortTest extends AbsTest{
 
     @Test
     public void sort() {
+        RadixSort r = new RadixSort(1);
+        ArrayList<Integer> list = getArrayList(16384, -1000000, 1000000);
+        ArrayList<Integer> target = getIntegers(r, list);
+        Assert.assertEquals(target.toString(), list.toString());
+    }
 
-        RadixSort r = new RadixSort(2);
-        ArrayList<Integer> list = getRandomArray(16384, -1000, 1000);
-
+    private ArrayList<Integer> getIntegers(RadixSort r, ArrayList<Integer> list) {
         ArrayList<Integer> target = new ArrayList<>(list);
         Collections.sort(target);
         long start = System.currentTimeMillis();
         r.sort(list);
         long end = System.currentTimeMillis();
         System.out.println(end - start);
+        return target;
+    }
+
+    @Test
+    public void sort1() {
+        RadixSort r = new RadixSort(2);
+        ArrayList<Integer> list = getArrayList(16384, -1000000, 1000000);
+        ArrayList<Integer> target = getIntegers(r, list);
         Assert.assertEquals(target.toString(), list.toString());
     }
 
-
-    static int getRandomNumberInts(int min, int max){
-        Random random = new Random();
-        return random.ints(min,(max+1)).findFirst().getAsInt();
+    @Test
+    public void sort2() {
+        RadixSort r = new RadixSort(4);
+        ArrayList<Integer> list = getArrayList(16384, -1000000, 1000000);
+        ArrayList<Integer> target = getIntegers(r, list);
+        Assert.assertEquals(target.toString(), list.toString());
     }
 
-    static ArrayList<Integer> getRandomArray(int length, int min, int max) {
-        List<Integer> list = new ArrayList<>();
-        for (int i = 0;i < length;i++) {
-            list.add(getRandomNumberInts(min, max));
-        }
-
-        return (ArrayList<Integer>) list;
+    @Test
+    public void sort3() {
+        RadixSort r = new RadixSort(8);
+        ArrayList<Integer> list = getArrayList(16384, -1000000, 1000000);
+        ArrayList<Integer> target = getIntegers(r, list);
+        Assert.assertEquals(target.toString(), list.toString());
     }
 }

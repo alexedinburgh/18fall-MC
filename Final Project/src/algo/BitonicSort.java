@@ -111,12 +111,13 @@ public class BitonicSort {
 				//pool.invokeAll(temp);
 				
 				BitonicMergeTask left = new BitonicMergeTask(input, begin, halfLength, isUp);
-				left.fork();
+				//left.fork();
 				
 				BitonicMergeTask right = new BitonicMergeTask(input, begin + halfLength, halfLength, isUp);
+				invokeAll(left, right);
 
-				right.compute();	
-				left.join();
+				//right.compute();
+				//left.join();
 			}
 		}
 	}
@@ -148,12 +149,12 @@ public class BitonicSort {
 			} else {
 				int halfLength = length / 2;
 				BitonicSortTask left = new BitonicSortTask(input, begin, halfLength, true);
-				left.fork();
+				//left.fork();
 				
 				BitonicSortTask right = new BitonicSortTask(input, begin + halfLength, halfLength, false);
-
-				right.compute();	
-				left.join();
+				invokeAll(left, right);
+				//right.compute();
+				//left.join();
 				
 				bitonicMerge(input, begin, length, isUp);
 			}
