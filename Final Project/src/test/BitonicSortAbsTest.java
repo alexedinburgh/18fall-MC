@@ -13,10 +13,10 @@ public class BitonicSortAbsTest extends AbsTest {
 
     @org.junit.Test
     public void sort() {
-        ArrayList<Integer> list = getArrayList((int) Math.pow(2, 10), -1000000, 1000000);
+        ArrayList<Integer> list = getArrayList((int) Math.pow(2, 14), -1000000, 1000000);
         ArrayList<Integer> target = new ArrayList<>(list);
         Collections.sort(target);
-        BitonicSort a = new BitonicSort(8);
+        BitonicSort a = new BitonicSort(2, 4);
         long start = System.currentTimeMillis();
         a.sort(list);
         long end = System.currentTimeMillis();
@@ -29,7 +29,7 @@ public class BitonicSortAbsTest extends AbsTest {
         ArrayList<Integer> list = getArrayList((int) Math.pow(2, 9), -1000000, 1000000);
         ArrayList<Integer> target = new ArrayList<>(list);
         Collections.sort(target);
-        BitonicSort a = new BitonicSort(8);
+        BitonicSort a = new BitonicSort(8, 4);
         long start = System.currentTimeMillis();
         a.sort(list);
         long end = System.currentTimeMillis();
@@ -42,7 +42,7 @@ public class BitonicSortAbsTest extends AbsTest {
         ArrayList<Integer> list = getArrayList((int) Math.pow(2, 8), -1000000, 1000000);
         ArrayList<Integer> target = new ArrayList<>(list);
         Collections.sort(target);
-        BitonicSort a = new BitonicSort(8);
+        BitonicSort a = new BitonicSort(8, 4);
         long start = System.currentTimeMillis();
         a.sort(list);
         long end = System.currentTimeMillis();
@@ -55,7 +55,7 @@ public class BitonicSortAbsTest extends AbsTest {
         ArrayList<Integer> list = getArrayList((int) Math.pow(2, 7), -1000000, 1000000);
         ArrayList<Integer> target = new ArrayList<>(list);
         Collections.sort(target);
-        BitonicSort a = new BitonicSort(8);
+        BitonicSort a = new BitonicSort(8, 4);
         long start = System.currentTimeMillis();
         a.sort(list);
         long end = System.currentTimeMillis();

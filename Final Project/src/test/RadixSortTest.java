@@ -13,7 +13,7 @@ public class RadixSortTest {
     @Test
     public void sort() {
 
-        RadixSort r = new RadixSort(1);
+        RadixSort r = new RadixSort(2);
         ArrayList<Integer> list = getRandomArray(16384, -1000, 1000);
 
         ArrayList<Integer> target = new ArrayList<>(list);

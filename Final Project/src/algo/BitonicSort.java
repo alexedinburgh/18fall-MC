@@ -26,9 +26,11 @@ import java.util.concurrent.RecursiveAction;
 public class BitonicSort {
 	
 	ForkJoinPool pool;
+	int threshold;
 	
-	public BitonicSort(int threadNum) {
-		pool = new ForkJoinPool(threadNum); 
+	public BitonicSort(int threadNum, int threshold) {
+		pool = new ForkJoinPool(threadNum);
+		this.threshold = threshold;
 	}
 	
 	public void compareAndSwap(ArrayList<Integer> input, int i, int j, boolean isUp) {
@@ -98,12 +100,15 @@ public class BitonicSort {
 			if (length > 1) {
 				int halfLength = length / 2;
 				
-				ArrayList<Callable<Void>> temp = new ArrayList<Callable<Void>>();
+				//ArrayList<Callable<Void>> temp = new ArrayList<Callable<Void>>();
 				for (int i = begin;i < begin + halfLength;i++) {
 					//compareAndSwap(input, i, i + halfLength, isUp);
-					temp.add(new SwapTask(input, i, i + halfLength, isUp));
+					//temp.add(new SwapTask(input, i, i + halfLength, isUp));
+					if(isUp == (input.get(i) > input.get(i + halfLength))) {
+						Collections.swap(input, i, i + halfLength);
+					}
 				}
-				pool.invokeAll(temp);
+				//pool.invokeAll(temp);
 				
 				BitonicMergeTask left = new BitonicMergeTask(input, begin, halfLength, isUp);
 				left.fork();
@@ -134,7 +139,13 @@ public class BitonicSort {
 		@Override
 		protected void compute() {
 //			System.out.println(Thread.currentThread().getName());
-			if (length > 1) {
+			if (length > 1 && length <= threshold) {
+				if (isUp) {
+					Collections.sort(input.subList(begin, begin + length));
+				} else {
+					Collections.sort(input.subList(begin, begin + length), Collections.reverseOrder());
+				}
+			} else {
 				int halfLength = length / 2;
 				BitonicSortTask left = new BitonicSortTask(input, begin, halfLength, true);
 				left.fork();
@@ -151,12 +162,12 @@ public class BitonicSort {
 	
 	public static void main(String args[]) {
 		ArrayList<Integer> input = new ArrayList<Integer>(Arrays.asList(1,3,2,4,0,3,-1,-2, 5, 12, 2, 8, 0, 1, -1, -3));
-		BitonicSort bitonicSort = new BitonicSort(8);
-		
+		BitonicSort bitonicSort = new BitonicSort(8, 512);
+
 		long start = System.nanoTime();
 		bitonicSort.sort(input);
 		long end = System.nanoTime();
-		
+
 		System.out.println(Arrays.toString(input.toArray()));
 		System.out.println(end - start);
 		bitonicSort.pool.shutdown();
