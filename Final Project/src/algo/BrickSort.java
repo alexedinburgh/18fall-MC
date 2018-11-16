@@ -32,7 +32,7 @@ public class BrickSort {
 		while (!isSorted) {
 			isSorted = true;
 			ArrayList<Callable<Void>> oddSort = new ArrayList<Callable<Void>>();
-			for (int i = 1; i < input.size();i += 2) {
+			for (int i = 0; i < input.size();i += 2) {
 				oddSort.add(new BrickSortTask(input, i, i+1));
 			}
 			try {
@@ -42,7 +42,7 @@ public class BrickSort {
 			}
 			
 			ArrayList<Callable<Void>> evenSort = new ArrayList<Callable<Void>>();
-			for (int i = 0; i < input.size();i += 2) {
+			for (int i = 1; i < input.size();i += 2) {
 				evenSort.add(new BrickSortTask(input, i, i+1));
 			}
 			try {
