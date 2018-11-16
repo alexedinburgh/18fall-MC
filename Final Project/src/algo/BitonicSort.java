@@ -146,7 +146,7 @@ public class BitonicSort {
 				} else {
 					Collections.sort(input.subList(begin, begin + length), Collections.reverseOrder());
 				}
-			} else {
+			} else if (length > 1) {
 				int halfLength = length / 2;
 				BitonicSortTask left = new BitonicSortTask(input, begin, halfLength, true);
 				//left.fork();
