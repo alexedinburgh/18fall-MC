@@ -62,6 +62,7 @@ public class RadixSort {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+		pool.shutdown();
 	}
 	
 	public class RadixSortHelper {

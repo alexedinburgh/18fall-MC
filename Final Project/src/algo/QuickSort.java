@@ -32,10 +32,12 @@ public class QuickSort {
 		}
 		this.input = input;
 		pool.invoke(new QuickSortTask(0, input.size() - 1));
+		pool.shutdown();
 	}
 	
 	public int partition(int begin, int end) {
-		int pivot = input.get(end);
+		int pivot = input.get((end - begin) / 2 + begin);
+		Collections.swap(input, end, (end - begin) / 2 + begin);
 		int i = begin - 1;
 		for (int j = begin;j < end;++j) {
 			if (input.get(j) < pivot && i != j) {

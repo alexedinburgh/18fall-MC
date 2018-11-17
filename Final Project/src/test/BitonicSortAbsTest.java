@@ -27,9 +27,10 @@ public class BitonicSortAbsTest extends AbsTest {
             ArrayList<Integer> target = new ArrayList<>(list);
             Collections.sort(target);
             for (int j = 0;j < 4;++j) {
+                ArrayList<Integer> copy = new ArrayList<>(list);
                 int threadNum = (int) Math.pow(2, j);
-                getIntegers(list, i, threadNum);
-                Assert.assertEquals(target.toString(), list.toString());
+                getIntegers(copy, i, threadNum);
+                Assert.assertEquals(target.toString(), copy.toString());
             }
         }
     }

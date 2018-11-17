@@ -34,6 +34,7 @@ public class Mergesort {
     public void sort(int[] list, int threshold) {
         MergesortTask mainTask = new MergesortTask(list,threshold);
         this.pool.invoke(mainTask);
+        pool.shutdown();
     }
 
     public class MergesortTask extends RecursiveAction {

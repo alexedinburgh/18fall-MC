@@ -57,6 +57,7 @@ public class BitonicSort {
 	
 	public void sort(List<Integer> input) {
 		bitonicSort((ArrayList<Integer>) input, 0, input.size(), true);
+        pool.shutdown();
 	}
 	
 	public class SwapTask implements Callable<Void> {

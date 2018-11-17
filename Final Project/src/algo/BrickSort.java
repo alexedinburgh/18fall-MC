@@ -51,6 +51,7 @@ public class BrickSort {
 				e.printStackTrace();
 			}
 		}
+		pool.shutdown();
 	}
 	
 	public void swap(ArrayList<Integer> input, int i, int j) {

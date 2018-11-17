@@ -24,9 +24,10 @@ public class MergesortAbsTest extends AbsTest {
             int[] target = Arrays.copyOf(list, list.length);
             Arrays.sort(target);
             for (int j = 0;j < 4;++j) {
+                int[] copy = Arrays.copyOf(list, list.length);
                 int threadNum = (int) Math.pow(2, j);
-                getIntegers(list, i, threadNum);
-                Assert.assertEquals(Arrays.toString(target), Arrays.toString(list));
+                getIntegers(copy, i, threadNum);
+                Assert.assertEquals(Arrays.toString(target), Arrays.toString(copy));
             }
         }
     }
