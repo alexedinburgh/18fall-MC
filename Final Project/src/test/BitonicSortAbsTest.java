@@ -12,7 +12,7 @@ public class BitonicSortAbsTest extends AbsTest {
     private ArrayList<Integer> getIntegers(ArrayList<Integer> list, int i, int threadNum) {
         ArrayList<Integer> target = new ArrayList<>(list);
         Collections.sort(target);
-        BitonicSort a = new BitonicSort(8, 4);
+        BitonicSort a = new BitonicSort(threadNum, 4);
         long start = System.currentTimeMillis();
         a.sort(list);
         long end = System.currentTimeMillis();
@@ -22,11 +22,13 @@ public class BitonicSortAbsTest extends AbsTest {
 
     @Test
     public void sort() {
-        for (int i = 0;i < 4;++i) {
-            int threadNum = (int) Math.pow(2, i);
-            for (int j = 0;j < 15;++j) {
-                ArrayList<Integer> list = getArrayList((int) Math.pow(2, j), -1000000, 1000000);
-                ArrayList<Integer> target = getIntegers(list, j, threadNum);
+        for (int i = 0;i < 15;++i) {
+            ArrayList<Integer> list = getArrayList((int) Math.pow(2, i), -1000000, 1000000);
+            ArrayList<Integer> target = new ArrayList<>(list);
+            Collections.sort(target);
+            for (int j = 0;j < 4;++j) {
+                int threadNum = (int) Math.pow(2, j);
+                getIntegers(list, i, threadNum);
                 Assert.assertEquals(target.toString(), list.toString());
             }
         }
