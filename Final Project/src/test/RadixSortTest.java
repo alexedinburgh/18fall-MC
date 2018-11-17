@@ -6,49 +6,29 @@ import org.junit.Test;
 
 import java.util.*;
 
-import static org.junit.Assert.*;
 
 public class RadixSortTest extends AbsTest{
 
-    @Test
-    public void sort() {
-        RadixSort r = new RadixSort(1);
-        ArrayList<Integer> list = getArrayList(16384, -1000000, 1000000);
-        ArrayList<Integer> target = getIntegers(r, list);
-        Assert.assertEquals(target.toString(), list.toString());
-    }
-
-    private ArrayList<Integer> getIntegers(RadixSort r, ArrayList<Integer> list) {
+    private ArrayList<Integer> getIntegers(ArrayList<Integer> list, int i, int threadNum) {
         ArrayList<Integer> target = new ArrayList<>(list);
         Collections.sort(target);
+        RadixSort a = new RadixSort(threadNum);
         long start = System.currentTimeMillis();
-        r.sort(list);
+        a.sort(list);
         long end = System.currentTimeMillis();
-        System.out.println(end - start);
+        System.out.println("Thread number: " + threadNum +". Time for " + (int) Math.pow(2, i) + " in Milli-seconds is: " + (end - start));
         return target;
     }
 
     @Test
-    public void sort1() {
-        RadixSort r = new RadixSort(2);
-        ArrayList<Integer> list = getArrayList(16384, -1000000, 1000000);
-        ArrayList<Integer> target = getIntegers(r, list);
-        Assert.assertEquals(target.toString(), list.toString());
-    }
-
-    @Test
-    public void sort2() {
-        RadixSort r = new RadixSort(4);
-        ArrayList<Integer> list = getArrayList(16384, -1000000, 1000000);
-        ArrayList<Integer> target = getIntegers(r, list);
-        Assert.assertEquals(target.toString(), list.toString());
-    }
-
-    @Test
-    public void sort3() {
-        RadixSort r = new RadixSort(8);
-        ArrayList<Integer> list = getArrayList(16384, -1000000, 1000000);
-        ArrayList<Integer> target = getIntegers(r, list);
-        Assert.assertEquals(target.toString(), list.toString());
+    public void sort() {
+        for (int i = 0;i < 4;++i) {
+            int threadNum = (int) Math.pow(2, i);
+            for (int j = 0;j < 15;++j) {
+                ArrayList<Integer> list = getArrayList((int) Math.pow(2, j), -1000000, 1000000);
+                ArrayList<Integer> target = getIntegers(list, j, threadNum);
+                Assert.assertEquals(target.toString(), list.toString());
+            }
+        }
     }
 }

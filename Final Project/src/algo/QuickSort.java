@@ -18,10 +18,12 @@ import java.util.concurrent.RecursiveAction;
  */
 public class QuickSort {
 	ForkJoinPool pool;
+	int threshold;
 	ArrayList<Integer> input;
 	
-	public QuickSort(int numThreads) {
+	public QuickSort(int numThreads, int threshold) {
 		this.pool = new ForkJoinPool(numThreads);
+		this.threshold = threshold;
 	}
 	
 	public void sort(ArrayList<Integer> input) {
@@ -57,7 +59,9 @@ public class QuickSort {
 		
 		@Override
 		protected void compute() {
-			if (end > begin) {
+			if (end - begin + 1 <= threshold) {
+				Collections.sort(input.subList(begin, end + 1));
+			} else if (end > begin) {
 				int index = partition(begin, end);
 				QuickSortTask left = new QuickSortTask(begin, index - 1);
 				QuickSortTask right = new QuickSortTask(index + 1, end);
@@ -70,7 +74,7 @@ public class QuickSort {
 	
 	public static void main(String args[]) {
 		ArrayList<Integer> input = new ArrayList<Integer>(Arrays.asList(1,3,2,4,0,3,-1,-2, 5, 12, 2, 8, 0, 1, -1, -3));
-		QuickSort quickSort = new QuickSort(8);
+		QuickSort quickSort = new QuickSort(8, 2);
 		
 		long start = System.nanoTime();
 		quickSort.sort(input);
